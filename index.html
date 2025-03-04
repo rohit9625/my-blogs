@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decentralized Attendance Management System (De-AMS)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Decentralized Attendance Management System (De-AMS)</h1>
+    
+    <h2>Introduction</h2>
+    <p>Traditional attendance systems face issues such as data manipulation, lack of transparency, and security vulnerabilities. The <strong>Decentralized Attendance Management System (De-AMS)</strong> leverages blockchain technology to ensure secure, tamper-proof, and transparent attendance tracking.</p>
+
+    <h2>Why Blockchain for Attendance Management?</h2>
+    <p>Blockchain ensures security and transparency by decentralizing attendance records, making them immutable and accessible to authorized users. Key benefits include:</p>
+    <ul>
+        <li><strong>Immutability:</strong> Attendance records cannot be altered or deleted.</li>
+        <li><strong>Transparency:</strong> All records are verifiable by authorized personnel.</li>
+        <li><strong>Decentralization:</strong> Eliminates reliance on a single authority.</li>
+    </ul>
+
+    <h2>How De-AMS Works</h2>
+    
+    <h3>1. User Authentication and Role Management</h3>
+    <p>The system supports three roles: Admin, Teacher, and Student. Authentication is secured with <strong>JWT (JSON Web Tokens)</strong> to prevent unauthorized access.</p>
+
+    <h3>2. Smart Contract for Attendance Tracking</h3>
+    <p>The core attendance logic is handled by a <strong>Solidity-based smart contract</strong> deployed on the Ethereum blockchain. The contract:</p>
+    <ul>
+        <li>Allows teachers to mark attendance on-chain.</li>
+        <li>Ensures students cannot alter attendance records.</li>
+        <li>Provides a public audit trail of attendance records.</li>
+    </ul>
+
+    <h3>3. Frontend and Backend Technologies</h3>
+    <ul>
+        <li><strong>Frontend:</strong> Built using Jetpack Compose for Desktop.</li>
+        <li><strong>Backend:</strong> Developed with Node.js and ethers.js for blockchain interaction.</li>
+        <li><strong>Database:</strong> MySQL stores off-chain data, such as user credentials.</li>
+    </ul>
+
+    <h2>Implementation Details</h2>
+    
+    <h3>Smart Contract Development</h3>
+    <p>The smart contract is written in Solidity and deployed on Ethereum. Key functions include:</p>
+    <ul>
+        <li><code>markAttendance(studentId, subject, date)</code>: Marks attendance on-chain.</li>
+        <li><code>getAttendance(studentId, subject)</code>: Retrieves attendance records.</li>
+        <li><code>authorizeTeacher(teacherId)</code>: Grants permission to teachers.</li>
+    </ul>
+
+    <h3>Backend Integration with Blockchain</h3>
+    <p>The backend, built using Node.js and ethers.js, connects to the Ethereum network to execute smart contract functions securely.</p>
+
+    <h3>Frontend Features</h3>
+    <p>Using Jetpack Compose for Desktop, the UI allows teachers and admins to:</p>
+    <ul>
+        <li>View real-time attendance records.</li>
+        <li>Authorize new teachers to mark attendance.</li>
+        <li>Check blockchain transaction history.</li>
+    </ul>
+
+    <h2>Advantages of De-AMS</h2>
+    <ul>
+        <li>✅ <strong>Enhanced Security:</strong> Immutable records prevent tampering.</li>
+        <li>✅ <strong>Transparency & Trust:</strong> Publicly verifiable attendance records.</li>
+        <li>✅ <strong>Automation:</strong> Eliminates manual tracking errors.</li>
+        <li>✅ <strong>Decentralization:</strong> No single point of failure.</li>
+    </ul>
+
+    <h2>Challenges and Future Scope</h2>
+    <h3>Challenges:</h3>
+    <ul>
+        <li>High gas fees on Ethereum.</li>
+        <li>Adoption barriers for non-technical users.</li>
+    </ul>
+
+    <h3>Future Scope:</h3>
+    <ul>
+        <li>Implementing **Layer 2 scaling solutions** to reduce transaction costs.</li>
+        <li>Adding **Facial Recognition-based Attendance** for enhanced security.</li>
+        <li>Integrating **Decentralized Identity (DID)** for secure authentication.</li>
+    </ul>
+
+    <h2>Conclusion</h2>
+    <p>The <strong>Decentralized Attendance Management System (De-AMS)</strong> revolutionizes attendance tracking by utilizing blockchain for security, transparency, and efficiency. By eliminating manual errors and preventing data manipulation, De-AMS enhances accountability and trust in attendance management.</p>
+
+    <footer>© 2024 De-AMS | Hosted on GitHub Pages</footer>
+</div>
+
+</body>
+</html>
