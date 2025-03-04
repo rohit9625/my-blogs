@@ -12,7 +12,7 @@
             background-color: #f4f4f4;
         }
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -31,6 +31,16 @@
         }
         ul {
             padding-left: 20px;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: "Courier New", monospace;
+            color: #333;
         }
         footer {
             text-align: center;
@@ -69,27 +79,75 @@
         <li>Provides a public audit trail of attendance records.</li>
     </ul>
 
-    <h3>3. Frontend and Backend Technologies</h3>
-    <ul>
-        <li><strong>Frontend:</strong> Built using Jetpack Compose for Desktop.</li>
-        <li><strong>Backend:</strong> Developed with Node.js and ethers.js for blockchain interaction.</li>
-        <li><strong>Database:</strong> MySQL stores off-chain data, such as user credentials.</li>
-    </ul>
+    <h3>Smart Contract Code</h3>
+    <p>Below is a simplified version of the smart contract written in Solidity:</p>
+    <pre><code>
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-    <h2>Implementation Details</h2>
+contract Attendance {
+    struct Record {
+        bool isPresent;
+        string subject;
+        uint256 timestamp;
+    }
+
+    mapping(address => bool) public authorizedTeachers;
+    mapping(address => mapping(string => Record[])) private attendanceRecords;
+    address public admin;
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Only admin can perform this action");
+        _;
+    }
+
+    modifier onlyTeacher() {
+        require(authorizedTeachers[msg.sender], "Only authorized teachers can mark attendance");
+        _;
+    }
+
+    constructor() {
+        admin = msg.sender;
+    }
+
+    function authorizeTeacher(address teacher) public onlyAdmin {
+        authorizedTeachers[teacher] = true;
+    }
+
+    function markAttendance(address student, string memory subject) public onlyTeacher {
+        attendanceRecords[student][subject].push(Record(true, subject, block.timestamp));
+    }
+
+    function getAttendance(address student, string memory subject) public view returns (Record[] memory) {
+        return attendanceRecords[student][subject];
+    }
+}
+    </code></pre>
+
+    <h3>3. Backend Integration with Blockchain</h3>
+    <p>The backend, built using Node.js and ethers.js, connects to the Ethereum network to execute smart contract functions securely. Here’s an example of how we interact with the contract:</p>
     
-    <h3>Smart Contract Development</h3>
-    <p>The smart contract is written in Solidity and deployed on Ethereum. Key functions include:</p>
-    <ul>
-        <li><code>markAttendance(studentId, subject, date)</code>: Marks attendance on-chain.</li>
-        <li><code>getAttendance(studentId, subject)</code>: Retrieves attendance records.</li>
-        <li><code>authorizeTeacher(teacherId)</code>: Grants permission to teachers.</li>
-    </ul>
+    <pre><code>
+const { ethers } = require("ethers");
 
-    <h3>Backend Integration with Blockchain</h3>
-    <p>The backend, built using Node.js and ethers.js, connects to the Ethereum network to execute smart contract functions securely.</p>
+const provider = new ethers.JsonRpcProvider("https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID");
+const privateKey = "YOUR_PRIVATE_KEY";
+const wallet = new ethers.Wallet(privateKey, provider);
 
-    <h3>Frontend Features</h3>
+const contractAddress = "YOUR_CONTRACT_ADDRESS";
+const abi = [ /* ABI JSON GOES HERE */ ];
+const contract = new ethers.Contract(contractAddress, abi, wallet);
+
+async function markAttendance(studentAddress, subject) {
+    const tx = await contract.markAttendance(studentAddress, subject);
+    await tx.wait();
+    console.log("Attendance marked successfully!");
+}
+
+markAttendance("0xStudentWalletAddress", "Blockchain101");
+    </code></pre>
+
+    <h3>4. Frontend Features</h3>
     <p>Using Jetpack Compose for Desktop, the UI allows teachers and admins to:</p>
     <ul>
         <li>View real-time attendance records.</li>
